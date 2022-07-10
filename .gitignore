@@ -1,18 +1,16 @@
-# Build and Release Folders
-bin-debug/
-bin-release/
-[Oo]bj/
-[Bb]in/
+.DS_Store
 
-# Other files and folders
-.settings/
+# dependencies
+client/node_modules
+client/.pnp
+client.pnp.js
 
-# Executables
-*.swf
-*.air
-*.ipa
-*.apk
+# testing
+client/coverage
 
-# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
-# should NOT be excluded as they contain compiler settings and other important
-# information for Eclipse / Flash Builder.
+# production
+client/build
+
+client/npm-debug.log*
+client/yarn-debug.log*
+client/yarn-error.log*
