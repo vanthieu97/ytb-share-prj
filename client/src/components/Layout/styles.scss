@@ -1,0 +1,22 @@
+.header-wrapper {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 10px;
+  .header {
+    padding: 5px 0;
+    border-bottom: solid 2px;
+    .web-info {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      .logo {
+        max-width: 40px;
+      }
+      .web-name {
+        font-size: 2rem;
+        font-weight: 500;
+        margin-left: 8px;
+      }
+    }
+  }
+}

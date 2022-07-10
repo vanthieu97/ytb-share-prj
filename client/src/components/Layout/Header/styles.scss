@@ -1,0 +1,43 @@
+.header-wrapper {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 10px;
+  .header {
+    padding: 5px 0;
+    border-bottom: solid 2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .web-info {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      .logo {
+        max-width: 40px;
+      }
+      .web-name {
+        font-size: 2rem;
+        font-weight: 500;
+        margin-left: 8px;
+      }
+    }
+    .web-user {
+      input {
+        margin-left: 10px;
+        border: solid 2px;
+        &[type='submit'],
+        &[type='button'] {
+          box-shadow: 1px 1px #000;
+          cursor: pointer;
+          &:active {
+            transform: scale(0.95);
+          }
+        }
+        &:not([type='submit']):not([type='button']):focus {
+          outline: none;
+          border-color: #9ecaed;
+        }
+      }
+    }
+  }
+}
