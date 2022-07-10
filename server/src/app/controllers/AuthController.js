@@ -7,6 +7,18 @@ const createSession = (req, res) => {
   res.cookie('email', req.body.email)
 }
 
+const auth = async (req, res) => {
+  if (!req.session.loggedIn) {
+    return res.json({
+      loggedIn: false,
+    })
+  }
+  res.json({
+    loggedIn: true,
+    email: req.cookies.email,
+  })
+}
+
 const loginOrRegister = async (req, res) => {
   const { email, password } = req.body
   try {
@@ -22,16 +34,16 @@ const loginOrRegister = async (req, res) => {
       return res.status(401).json({ msg: 'Your password is incorrect!' })
     }
     createSession(req, res)
-    res.json({ msg: 'Login successfully!' })
+    res.json({ email })
   } catch (error) {
     res.status(500).send({ msg: 'Something went wrong!' })
   }
 }
 
 const logout = (req, res) => {
-  req.session.loggedIn = false
+  req.session.destroy()
   res.clearCookie('email')
   res.json({ msg: 'Logout successfully!' })
 }
 
-export default { loginOrRegister, logout }
+export default { auth, loginOrRegister, logout }

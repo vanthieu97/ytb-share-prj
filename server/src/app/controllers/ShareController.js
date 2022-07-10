@@ -38,6 +38,10 @@ const getSharedVideos = async (req, res) => {
 }
 
 const addShareVideo = async (req, res) => {
+  const email = req.cookies.email
+  if (!email) {
+    return res.status(401).json({ msg: 'You must login to share your video!' })
+  }
   const { url } = req.body
   if (!url) {
     return res.status(400).send({ msg: 'Your URL is invalid!' })
@@ -57,11 +61,11 @@ const addShareVideo = async (req, res) => {
     if (response.status !== 200 || !response.data.pageInfo.totalResults) {
       return res.status(404).send({ msg: 'Your URL is not Youtube Video URL!' })
     }
-    const shared = await SharedVideo.findOne({ url })
+    const shared = await SharedVideo.findOne({ url: id })
     if (shared) {
       return res.status(409).send({ msg: 'Your URL is existed!' })
     }
-    const sharedVideo = new SharedVideo({ url: id, sharedBy: 'vanthieunguyen234@gmail.com' })
+    const sharedVideo = new SharedVideo({ url: id, sharedBy: email })
     await sharedVideo.save()
     res.send({ msg: 'Your URL shared successfully!' })
   } catch (error) {
