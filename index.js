@@ -9,7 +9,6 @@ const routes = require('./routes')
 const db = require('./config/db')
 
 db.connect()
-console.log(process.env)
 const app = express()
 const port = process.env.PORT || 3018
 
