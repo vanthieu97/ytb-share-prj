@@ -6,6 +6,7 @@
     "name": "Van Thieu Nguyen",
     "email": "vanthieunguyen234@gmail.com"
   },
+  "proxy": "http://localhost:3018",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
