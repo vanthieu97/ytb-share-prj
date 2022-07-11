@@ -1,5 +1,5 @@
 .home-wrapper {
-  max-width: 800px;
+  max-width: 900px;
   margin: auto;
   padding: 20px;
   .shared-list-wrapper {
@@ -21,6 +21,29 @@
         line-height: 18px;
         width: 100%;
         overflow: hidden;
+        .video-header {
+          display: flex;
+          .video-header-left {
+            flex: 1;
+          }
+          .video-header-right {
+            width: 200px;
+            .vote-wrapper {
+              display: flex;
+              justify-content: flex-end;
+              align-items: center;
+              img {
+                max-width: 50px;
+              }
+              .vote {
+                cursor: pointer;
+                &:not(:first-child) {
+                  margin-left: 10px;
+                }
+              }
+            }
+          }
+        }
         .title {
           color: #ff0000;
           display: -webkit-box;

@@ -9,6 +9,7 @@ const createSession = (req, res) => {
 
 const auth = async (req, res) => {
   if (!req.session.loggedIn) {
+    res.clearCookie('email')
     return res.json({
       loggedIn: false,
     })

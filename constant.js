@@ -1,7 +1,9 @@
-const YOUTUBE_API_KEY = 'AIzaSyDKsFb1LV8C6-FEFpPj3dG5mjIDHyN8ewQ'
 const SALT_ROUNDS = 10
+const LIKE = 'LIKE'
+const DISLIKE = 'DISLIKE'
 
 module.exports = {
-  YOUTUBE_API_KEY,
   SALT_ROUNDS,
+  LIKE,
+  DISLIKE,
 }

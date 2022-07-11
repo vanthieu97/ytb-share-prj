@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import axios from '../../axios-settings'
 import Loading from '../../components/Loading'
 import Notification from '../../components/Notification'
 import { getErrorMsg } from '../../shared/utility'
+import { AuthContext } from '../../Auth.context'
 import './styles.scss'
 
 const Home = () => {
+  const { state } = useContext(AuthContext)
+  const { loggedIn } = state || {}
+
   const [loading, setLoading] = useState(false)
   const [list, setList] = useState([])
   const [total, setTotal] = useState(0)
@@ -29,12 +33,22 @@ const Home = () => {
       getVideos(page)
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
+    [loggedIn],
   )
 
   const onPageChange = (value) => {
     setPage(value)
     getVideos(value)
+  }
+
+  const voteVideo = (url, vote) => async () => {
+    try {
+      await axios.post('/share/vote', { url, vote })
+      Notification.success('Vote video successfully!')
+      getVideos(page)
+    } catch (error) {
+      Notification.error(getErrorMsg(error))
+    }
   }
 
   const renderPagination = () => {
@@ -55,6 +69,7 @@ const Home = () => {
         arr.push(count++)
       }
     }
+
     return (
       <>
         {page !== 0 && (
@@ -90,16 +105,47 @@ const Home = () => {
                 src={`https://www.youtube.com/embed/${video.url}?feature=oembed`}
               />
               <div className="video-info">
-                <h4 className="title" title={video.title}>
-                  {video.title}
-                </h4>
-                <p className="shared-by">Shared by: {video.sharedBy}</p>
-                <div className="statistics">
-                  <div className="count-wrapper">
-                    {video.viewCount} <img src="images/view.svg" alt="like" />
+                <div className="video-header">
+                  <div className="video-header-left">
+                    <h4 className="title" title={video.title}>
+                      {video.title}
+                    </h4>
+                    <p className="shared-by">Shared by: {video.sharedBy}</p>
+                    <div className="statistics">
+                      <div className="count-wrapper">
+                        {video.likeCount} <img src="images/voted_like.png" alt="like" />
+                      </div>
+                      <div className="count-wrapper">
+                        {video.dislikeCount} <img src="images/voted_dislike.png" alt="dislike" />
+                      </div>
+                    </div>
                   </div>
-                  <div className="count-wrapper">
-                    {video.likeCount} <img src="images/like.svg" alt="dislike" />
+                  <div className="video-header-right">
+                    {loggedIn && (
+                      <div className="vote-wrapper">
+                        {video.vote === 'LIKE' ? (
+                          <>
+                            <img src="images/voted_like.png" alt="vote-like" />
+                            <div class="vote">(voted up)</div>
+                          </>
+                        ) : video.vote === 'DISLIKE' ? (
+                          <>
+                            <img src="images/voted_dislike.png" alt="vote-dislike" />
+                            <div class="vote">(voted down)</div>
+                          </>
+                        ) : (
+                          <>
+                            <div className="vote" onClick={voteVideo(video.url, 'LIKE')}>
+                              <img src="images/vote_like.png" alt="vote-like" />
+                            </div>
+                            <div className="vote" onClick={voteVideo(video.url, 'DISLIKE')}>
+                              <img src="images/vote_dislike.png" alt="vote-dislike" />
+                            </div>
+                            <div className="vote">(un-voted)</div>
+                          </>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div className="desc">
