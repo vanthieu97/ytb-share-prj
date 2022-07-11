@@ -1,6 +1,6 @@
-import axios from 'axios'
-import SharedVideo from '../models/SharedVideo'
-import { YOUTUBE_API_KEY } from '../../constant'
+const axios = require('axios')
+const SharedVideo = require('../models/SharedVideo')
+const { YOUTUBE_API_KEY } = require('../../constant')
 
 const getVideoData = async (urls) => {
   let str = urls.map(({ url }) => url).join(',')
@@ -73,4 +73,4 @@ const addShareVideo = async (req, res) => {
   }
 }
 
-export default { getSharedVideos, addShareVideo }
+module.exports = { getSharedVideos, addShareVideo }

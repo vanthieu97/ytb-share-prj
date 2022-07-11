@@ -1,9 +1,9 @@
-import shareRouter from './share'
-import authRouter from './auth'
+const shareRouter = require('./share')
+const authRouter = require('./auth')
 
 const routes = (app) => {
   app.use('/api/share', shareRouter)
   app.use('/api/auth', authRouter)
 }
 
-export default routes
+module.exports = routes

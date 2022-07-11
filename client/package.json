@@ -1,7 +1,8 @@
 {
-  "name": "client",
+  "name": "client-ytb-share-prj",
   "version": "0.1.0",
   "private": true,
+  "author": "vanthieunguyen234@gmail.com",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
@@ -15,7 +16,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && rm -rf ../server/build && mv build ../server",
+    "build": "react-scripts build && rm -rf ../build && mv build ../",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

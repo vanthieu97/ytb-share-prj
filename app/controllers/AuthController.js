@@ -1,6 +1,6 @@
-import bcrypt from 'bcrypt'
-import { SALT_ROUNDS } from '../../constant'
-import User from '../models/User'
+const bcrypt = require('bcrypt')
+const { SALT_ROUNDS } = require('../../constant')
+const User = require('../models/User')
 
 const createSession = (req, res) => {
   req.session.loggedIn = true
@@ -46,4 +46,4 @@ const logout = (req, res) => {
   res.json({ msg: 'Logout successfully!' })
 }
 
-export default { auth, loginOrRegister, logout }
+module.exports = { auth, loginOrRegister, logout }

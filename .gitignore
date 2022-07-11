@@ -5,15 +5,15 @@ client/node_modules
 client/.pnp
 client.pnp.js
 
-server/node_modules
+node_modules
 
 # testing
 client/coverage
 
 # production
 client/build
-server/dist
-server/build
+dist
+build
 
 client/npm-debug.log*
 client/yarn-debug.log*

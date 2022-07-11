@@ -1,11 +1,12 @@
-import path from 'path'
-import express from 'express'
-import session from 'express-session'
-import cookieParser from 'cookie-parser'
-import morgan from 'morgan'
-import cors from 'cors'
-import routes from './routes'
-import db from './config/db'
+const path = require('path')
+const express = require('express')
+const session = require('express-session')
+const cookieParser = require('cookie-parser')
+const morgan = require('morgan')
+const cors = require('cors')
+const routes = require('./routes')
+const db = require('./config/db')
+
 db.connect()
 
 const app = express()
@@ -34,10 +35,10 @@ routes(app)
 
 app.use(morgan('combined'))
 
-app.use(express.static(path.join(__dirname, '..', 'build')))
+app.use(express.static(path.join(__dirname, 'build')))
 
 app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'build', 'index.html'))
+  res.sendFile(path.join(__dirname, 'build', 'index.html'))
 })
 
 app.listen(port, () => console.log(`App listen at http://localhost:${port}`))
