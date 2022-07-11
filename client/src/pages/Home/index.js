@@ -57,13 +57,21 @@ const Home = () => {
     }
     return (
       <>
-        {page !== 0 && <div className="page">&laquo;</div>}
+        {page !== 0 && (
+          <div className="page" onClick={() => onPageChange(page - 1)}>
+            &laquo;
+          </div>
+        )}
         {arr.map((value) => (
           <div key={value} className={`page ${page === value ? 'current' : ''}`} onClick={() => onPageChange(value)}>
             {value + 1}
           </div>
         ))}
-        {page !== maxPage - 1 && <div className="page">&raquo;</div>}
+        {page !== maxPage - 1 && (
+          <div className="page" onClick={() => onPageChange(page + 1)}>
+            &raquo;
+          </div>
+        )}
       </>
     )
   }
@@ -76,7 +84,11 @@ const Home = () => {
         {list.length ? (
           list.map((video) => (
             <div key={video.url} className="shared-video-wrapper">
-              <iframe title={video.title} src={`https://www.youtube.com/embed/${video.url}?feature=oembed`} />
+              <iframe
+                loading="lazy"
+                title={video.title}
+                src={`https://www.youtube.com/embed/${video.url}?feature=oembed`}
+              />
               <div className="video-info">
                 <h4 className="title" title={video.title}>
                   {video.title}

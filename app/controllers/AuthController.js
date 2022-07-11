@@ -27,7 +27,7 @@ const loginOrRegister = async (req, res) => {
       const hash = await bcrypt.genSalt(SALT_ROUNDS).then((salt) => bcrypt.hash(password, salt))
       await new User({ email, password: hash }).save()
       createSession(req, res)
-      return res.send({ msg: 'Register successfully!' })
+      return res.send({ email })
     }
     const match = await bcrypt.compare(password, user.password)
     if (!match) {
