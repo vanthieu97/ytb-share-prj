@@ -41,8 +41,8 @@ const loginOrRegister = async (req, res) => {
 }
 
 const logout = (req, res) => {
-  req.session.destroy()
   res.clearCookie('email')
+  req.session.destroy()
   res.json({ msg: 'Logout successfully!' })
 }
 

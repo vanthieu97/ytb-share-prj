@@ -46,7 +46,7 @@ const ContextProvider = ({ children }) => {
   const auth = async () => {
     dispatch({ type: LOADING })
     try {
-      const { data } = await axios.post('http://localhost:3018/auth')
+      const { data } = await axios.post('/auth')
       if (data && data.email) {
         dispatch({ type: AUTH_SUCCESS, payload: data })
       }
@@ -59,7 +59,7 @@ const ContextProvider = ({ children }) => {
   const login = async (params) => {
     dispatch({ type: LOADING })
     try {
-      const { data } = await axios.post('http://localhost:3018/auth/login', params, { withCredentials: true })
+      const { data } = await axios.post('/auth/login', params, { withCredentials: true })
       dispatch({ type: LOGIN_SUCCESS, payload: data })
     } catch (error) {
       dispatch({ type: LOGIN_FAIL, payload: error })
@@ -69,7 +69,7 @@ const ContextProvider = ({ children }) => {
   const logout = async () => {
     dispatch({ type: LOADING })
     try {
-      await axios.post('http://localhost:3018/auth/logout')
+      await axios.post('/auth/logout')
       dispatch({ type: LOGOUT_SUCCESS })
     } catch (error) {
       dispatch({ type: LOGOUT_FAIL, payload: error })
