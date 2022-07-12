@@ -1,0 +1,13 @@
+.not-found-wrapper {
+  padding: 20px;
+  text-align: center;
+  font-size: 2rem;
+  > div {
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  > a {
+    font-size: 1.5rem;
+    text-transform: uppercase;
+  }
+}

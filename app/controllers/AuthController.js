@@ -1,22 +1,22 @@
 const bcrypt = require('bcrypt')
-const { SALT_ROUNDS } = require('../../constant')
 const User = require('../models/User')
+const { getHash } = require('../../utils')
 
-const createSession = (req, res) => {
+const createSession = (req) => {
   req.session.loggedIn = true
-  res.cookie('email', req.body.email)
+  req.session.email = req.body.email
 }
 
 const auth = async (req, res) => {
   if (!req.session.loggedIn) {
-    res.clearCookie('email')
+    req.session.destroy()
     return res.json({
       loggedIn: false,
     })
   }
   res.json({
     loggedIn: true,
-    email: req.cookies.email,
+    email: req.session.email,
   })
 }
 
@@ -25,16 +25,16 @@ const loginOrRegister = async (req, res) => {
   try {
     const user = await User.findOne({ email })
     if (!user) {
-      const hash = await bcrypt.genSalt(SALT_ROUNDS).then((salt) => bcrypt.hash(password, salt))
+      const hash = await getHash(password)
       await new User({ email, password: hash }).save()
-      createSession(req, res)
-      return res.send({ email })
+      createSession(req)
+      return res.json({ email })
     }
     const match = await bcrypt.compare(password, user.password)
     if (!match) {
       return res.status(401).json({ msg: 'Your password is incorrect!' })
     }
-    createSession(req, res)
+    createSession(req)
     res.json({ email })
   } catch (error) {
     res.status(500).send({ msg: 'Something went wrong!' })
@@ -42,7 +42,6 @@ const loginOrRegister = async (req, res) => {
 }
 
 const logout = (req, res) => {
-  res.clearCookie('email')
   req.session.destroy()
   res.json({ msg: 'Logout successfully!' })
 }

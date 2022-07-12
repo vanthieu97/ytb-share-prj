@@ -18,7 +18,7 @@ const Home = () => {
   const getVideos = async (value) => {
     setLoading(true)
     try {
-      const { data } = await axios(`/share?page=${value}`)
+      const { data } = await axios.get(`/share?page=${value}`)
       setLoading(false)
       setTotal(data.total)
       setList(data.data)
@@ -96,7 +96,7 @@ const Home = () => {
   ) : (
     <div className="home-wrapper">
       <div className="shared-list-wrapper">
-        {list.length ? (
+        {list?.length ? (
           list.map((video) => (
             <div key={video.url} className="shared-video-wrapper">
               <iframe
@@ -126,12 +126,12 @@ const Home = () => {
                         {video.vote === 'LIKE' ? (
                           <>
                             <img src="images/voted_like.png" alt="vote-like" />
-                            <div class="vote">(voted up)</div>
+                            <div className="vote">(voted up)</div>
                           </>
                         ) : video.vote === 'DISLIKE' ? (
                           <>
                             <img src="images/voted_dislike.png" alt="vote-dislike" />
-                            <div class="vote">(voted down)</div>
+                            <div className="vote">(voted down)</div>
                           </>
                         ) : (
                           <>

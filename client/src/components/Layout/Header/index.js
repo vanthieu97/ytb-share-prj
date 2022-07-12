@@ -8,7 +8,7 @@ import './styles.scss'
 const Header = () => {
   const formRef = useRef()
   const { state, auth, login, logout } = useContext(AuthContext)
-  const { loading, loggedIn, email, error } = state
+  const { loading, loggedIn, email, error } = state || {}
 
   useEffect(
     () => {

@@ -2,15 +2,20 @@
   "name": "server-ytb-share-prj",
   "version": "1.0.0",
   "description": "",
+  "author": {
+    "name": "Van Thieu Nguyen",
+    "email": "vanthieunguyen234@gmail.com"
+  },
   "scripts": {
     "start": "node .",
     "start-nodemon": "nodemon --exec \"npm start\" --ignore 'client/**/*.js'",
     "heroku-postbuild": "npm install --prefix client && npm run build --prefix client",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
-  "author": {
-    "name": "Van Thieu Nguyen",
-    "email": "vanthieunguyen234@gmail.com"
+  "jest": {
+    "modulePathIgnorePatterns": [
+      "client"
+    ]
   },
   "license": "ISC",
   "dependencies": {
@@ -27,8 +32,11 @@
     "@babel/cli": "^7.17.10",
     "@babel/core": "^7.18.2",
     "@babel/preset-env": "^7.18.2",
+    "jest": "^28.1.2",
+    "mongodb-memory-server": "^8.7.2",
     "morgan": "^1.10.0",
     "node-sass": "^7.0.1",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "supertest": "^6.2.4"
   }
 }
